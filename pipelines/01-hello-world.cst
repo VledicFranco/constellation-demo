@@ -1,0 +1,11 @@
+# 01 — Hello World
+# Demonstrates: input declarations, module calls, output declarations
+#
+# This is the simplest possible pipeline. It takes a greeting string,
+# converts it to uppercase, and outputs the result.
+
+in greeting: String
+
+upper = Uppercase(greeting)
+
+out upper

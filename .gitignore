@@ -1,0 +1,30 @@
+# sbt
+target/
+project/target/
+project/project/
+
+# Node
+node_modules/
+dist/
+*.tgz
+
+# IDE
+.idea/
+.vscode/
+*.iml
+.bsp/
+.metals/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.log
+
+# Grafana
+grafana-data/
+
+# Build artifacts
+*.jar
+*.class

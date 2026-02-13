@@ -1,0 +1,33 @@
+# 13 — Priority Scheduling
+# Demonstrates: priority levels for the bounded scheduler
+#
+# When CONSTELLATION_SCHEDULER_ENABLED=true, modules are executed
+# according to their priority. Higher-priority tasks run first.
+# Starvation protection boosts low-priority tasks after timeout.
+
+in text: String
+
+# Critical priority — executed immediately, bypasses queue
+criticalOp = Uppercase(text) with priority: critical
+
+# High priority — runs before normal tasks
+highOp = Lowercase(text) with priority: high
+
+# Normal priority (default) — standard execution order
+normalOp = WordCount(text) with priority: normal
+
+# Low priority — yields to higher-priority work
+lowOp = TextLength(text) with priority: low
+
+# Background priority — runs only when no other work is queued
+backgroundOp = Trim(text) with priority: background
+
+# Numeric priority — custom priority value (higher = more important)
+custom = Uppercase(text) with priority: 42
+
+out criticalOp
+out highOp
+out normalOp
+out lowOp
+out backgroundOp
+out custom

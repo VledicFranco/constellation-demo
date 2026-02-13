@@ -1,0 +1,77 @@
+services:
+  memcached:
+    image: memcached:1.6-alpine
+    ports:
+      - "11211:11211"
+    healthcheck:
+      test: ["CMD-SHELL", "echo stats | nc localhost 11211 | grep -q pid"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  constellation-server:
+    build: ./server
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+    environment:
+      MEMCACHED_ADDRESS: memcached:11211
+      CONSTELLATION_PORT: "8080"
+      CONSTELLATION_GRPC_PORT: "9090"
+      CONSTELLATION_SCHEDULER_ENABLED: "true"
+      CONSTELLATION_SCHEDULER_MAX_CONCURRENCY: "16"
+      CONSTELLATION_SCHEDULER_STARVATION_TIMEOUT: "30s"
+      CONSTELLATION_CST_DIR: /app/pipelines
+      CONSTELLATION_DASHBOARD_ENABLED: "true"
+    volumes:
+      - ./pipelines:/app/pipelines:ro
+    depends_on:
+      memcached:
+        condition: service_healthy
+
+  provider-ts:
+    build: ./provider-ts
+    ports:
+      - "50051:50051"
+    environment:
+      CONSTELLATION_ADDRESS: constellation-server:9090
+      EXECUTOR_PORT: "50051"
+      EXECUTOR_HOST: provider-ts
+    depends_on:
+      - constellation-server
+    restart: on-failure
+
+  provider-scala:
+    build: ./provider-scala
+    ports:
+      - "50052:50052"
+    environment:
+      CONSTELLATION_ADDRESS: constellation-server:9090
+      EXECUTOR_PORT: "50052"
+      EXECUTOR_HOST: provider-scala
+    depends_on:
+      - constellation-server
+    restart: on-failure
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9091:9090"
+    volumes:
+      - ./monitoring/prometheus:/etc/prometheus:ro
+    depends_on:
+      - constellation-server
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: demo
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - prometheus

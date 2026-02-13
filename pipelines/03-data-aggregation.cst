@@ -1,0 +1,30 @@
+# 03 — Data Aggregation
+# Demonstrates: built-in data modules (SumList, Average, Max, Min,
+#               FilterGreaterThan, MultiplyEach, Range, FormatNumber)
+#
+# Shows numeric list processing and aggregation.
+
+in numbers: List<Int>
+in threshold: Int
+
+# Aggregation
+total   = SumList(numbers)
+avg     = Average(numbers)
+highest = Max(numbers)
+lowest  = Min(numbers)
+
+# Transformation
+filtered = FilterGreaterThan(numbers, threshold)
+doubled  = MultiplyEach(numbers, 2)
+
+# Generation and formatting
+sequence  = Range(1, 10)
+formatted = FormatNumber(total)
+
+out total
+out avg
+out highest
+out lowest
+out filtered
+out doubled
+out formatted

@@ -1,0 +1,28 @@
+# 04 — Record Types
+# Demonstrates: type definitions, record types, field access, stdlib usage
+#
+# Shows how to work with structured data using the type system.
+
+use stdlib.math
+use stdlib.string
+use stdlib.compare
+
+in name: String
+in age: Int
+in score: Int
+
+# Use stdlib functions for computation
+nameLength = string-length(name)
+isAdult = gte(age, 18)
+doubleScore = multiply(score, 2)
+ageStr = to-string(age)
+
+# String operations
+greeting = concat("Hello, ", name)
+summary = concat(greeting, concat("! Age: ", ageStr))
+
+out greeting
+out summary
+out isAdult
+out doubleScore
+out nameLength

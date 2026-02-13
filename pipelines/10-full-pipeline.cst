@@ -1,0 +1,38 @@
+# 10 — Full Content Intelligence Pipeline
+# Demonstrates: combining built-in modules with both external providers
+#               to build a realistic content analysis pipeline
+#
+# This pipeline:
+# 1. Preprocesses text (built-in modules)
+# 2. Analyzes sentiment (TypeScript provider)
+# 3. Extracts entities and classifies topic (Scala provider)
+# 4. Computes readability (Scala provider)
+
+use nlp.sentiment
+use nlp.entities
+
+in rawArticle: String
+
+# Step 1: Text preprocessing (built-in)
+cleaned     = Trim(rawArticle)
+wordCount   = WordCount(cleaned)
+textLen     = TextLength(cleaned)
+
+# Step 2: Sentiment analysis (TypeScript provider)
+sentiment   = AnalyzeSentiment(cleaned) with cache: 10min
+language    = DetectLanguage(cleaned) with cache: 1h
+keywords    = ExtractKeywords(cleaned, 5) with cache: 10min
+
+# Step 3: Entity and topic analysis (Scala provider)
+entities    = ExtractEntities(cleaned) with cache: 10min
+topic       = ClassifyTopic(cleaned) with cache: 10min
+readability = ComputeReadability(cleaned) with cache: 10min
+
+out wordCount
+out textLen
+out sentiment
+out language
+out keywords
+out entities
+out topic
+out readability

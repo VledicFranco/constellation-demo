@@ -1,0 +1,31 @@
+# 02 — Text Processing
+# Demonstrates: built-in text modules (Trim, Lowercase, Uppercase, Replace,
+#               WordCount, TextLength, Contains, Split, SplitLines)
+#
+# Shows how to chain multiple text operations together.
+
+in rawText: String
+
+# Clean and normalize
+trimmed   = Trim(rawText)
+lower     = Lowercase(trimmed)
+upper     = Uppercase(trimmed)
+
+# Search and replace
+cleaned   = Replace(trimmed, "  ", " ")
+
+# Analysis
+words     = WordCount(trimmed)
+length    = TextLength(trimmed)
+hasEmail  = Contains(lower, "@")
+
+# Splitting
+tokens    = Split(lower, " ")
+lines     = SplitLines(rawText)
+
+out trimmed
+out upper
+out words
+out length
+out hasEmail
+out tokens

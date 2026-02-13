@@ -1,0 +1,31 @@
+# 05 — Guards and Coalesce
+# Demonstrates: guard expressions (when), coalesce operator (??),
+#               optional value handling
+#
+# Guards produce Optional<T>: Some(value) when condition is true, None when false.
+# Coalesce (??) unwraps an Optional with a fallback value.
+
+use stdlib.compare
+
+in score: Int
+in name: String
+
+# Guard: produces Optional<String>
+# "Excellent!" is only assigned when score >= 90
+excellentMsg = "Excellent!" when gte(score, 90)
+
+# Coalesce: unwraps Optional with fallback
+message = excellentMsg ?? "Keep trying!"
+
+# Chained guards with coalesce
+highMsg = "High performer" when gte(score, 80)
+midMsg  = "Average" when gte(score, 50)
+result  = highMsg ?? midMsg ?? "Needs improvement"
+
+# Guard with computed values
+greeting = concat("Congrats, ", name) when gte(score, 95)
+finalGreeting = greeting ?? concat("Hello, ", name)
+
+out message
+out result
+out finalGreeting

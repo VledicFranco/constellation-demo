@@ -1,0 +1,36 @@
+# 06 — Branch Logic
+# Demonstrates: branch expressions (multi-way conditionals),
+#               if/else expressions, boolean operators
+#
+# Branch expressions evaluate conditions top-to-bottom and return
+# the value for the first matching condition.
+
+use stdlib.compare
+use stdlib.bool
+
+in score: Int
+in isUrgent: Boolean
+
+# Simple branch — letter grade
+grade = branch {
+  gte(score, 90) -> "A",
+  gte(score, 80) -> "B",
+  gte(score, 70) -> "C",
+  gte(score, 60) -> "D",
+  otherwise -> "F"
+}
+
+# Branch with boolean operators
+actionPlan = branch {
+  isUrgent and gte(score, 80) -> "immediate-review",
+  isUrgent and not gte(score, 80) -> "escalate",
+  gte(score, 80) -> "queue-review",
+  otherwise -> "standard-process"
+}
+
+# If/else expression
+passStatus = if (gte(score, 60)) "PASS" else "FAIL"
+
+out grade
+out actionPlan
+out passStatus

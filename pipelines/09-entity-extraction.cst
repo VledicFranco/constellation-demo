@@ -1,0 +1,22 @@
+# 09 — Entity Extraction (Scala Provider)
+# Demonstrates: calling external modules from the Scala provider
+#               in the nlp.entities namespace
+#
+# Requires the provider-scala service to be running and connected.
+
+use nlp.entities
+
+in articleText: String
+
+# Extract entities — returns { entities: List<{ name: String, entityType: String }> }
+entities = ExtractEntities(articleText)
+
+# Classify topic — returns { topic: String, confidence: Float }
+topic = ClassifyTopic(articleText)
+
+# Compute readability — returns { score: Float, grade: String }
+readability = ComputeReadability(articleText)
+
+out entities
+out topic
+out readability

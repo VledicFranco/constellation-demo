@@ -1,0 +1,42 @@
+# 07 — Module Options
+# Demonstrates: retry, timeout, cache, priority, backoff, throttle,
+#               on_error, combined options
+#
+# Module options are specified using the `with` clause after a module call.
+# Multiple options are comma-separated.
+
+in text: String
+in query: String
+
+# Retry on failure (up to 3 attempts)
+resilient = Uppercase(text) with retry: 3
+
+# Timeout (fail if module takes longer than 30 seconds)
+bounded = Lowercase(text) with timeout: 30s
+
+# Cache result for 5 minutes
+cached = WordCount(text) with cache: 5min
+
+# Priority scheduling (higher priority = executed first when scheduler is bounded)
+critical = TextLength(text) with priority: critical
+background = Trim(text) with priority: background
+
+# Backoff strategy for retries
+withBackoff = Uppercase(text) with retry: 3, backoff: exponential
+
+# Error handling: skip means use None on error (result becomes Optional)
+safe = WordCount(text) with on_error: skip
+
+# Combined options — realistic production configuration
+production = Uppercase(text) with
+    retry: 3,
+    timeout: 30s,
+    cache: 5min,
+    priority: high,
+    backoff: exponential
+
+out resilient
+out bounded
+out cached
+out critical
+out production

@@ -1,0 +1,66 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "links": [],
+  "panels": [
+    {
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
+      "fieldConfig": { "defaults": { "unit": "ms" }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "id": 1,
+      "options": { "legend": { "displayMode": "list" }, "tooltip": { "mode": "multi" } },
+      "title": "Pipeline Execution Latency",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "constellation_pipeline_duration_ms{quantile=\"0.5\"}", "legendFormat": "p50" },
+        { "expr": "constellation_pipeline_duration_ms{quantile=\"0.95\"}", "legendFormat": "p95" },
+        { "expr": "constellation_pipeline_duration_ms{quantile=\"0.99\"}", "legendFormat": "p99" }
+      ]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
+      "fieldConfig": { "defaults": { "unit": "ops" }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "id": 2,
+      "options": { "legend": { "displayMode": "list" }, "tooltip": { "mode": "multi" } },
+      "title": "Pipeline Throughput",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "rate(constellation_pipeline_executions_total[5m])", "legendFormat": "Executions/s" }
+      ]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
+      "fieldConfig": { "defaults": { "unit": "short" }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "id": 3,
+      "options": { "legend": { "displayMode": "list" }, "tooltip": { "mode": "multi" } },
+      "title": "Pipeline Errors",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "rate(constellation_pipeline_errors_total[5m])", "legendFormat": "Errors/s" }
+      ]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "PBFA97CFB590B2093" },
+      "fieldConfig": { "defaults": { "unit": "short" }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "id": 4,
+      "options": { "legend": { "displayMode": "list" }, "tooltip": { "mode": "multi" } },
+      "title": "Compilations",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "rate(constellation_compilations_total[5m])", "legendFormat": "Compilations/s" },
+        { "expr": "rate(constellation_compilation_cache_hits_total[5m])", "legendFormat": "Cache Hits/s" }
+      ]
+    }
+  ],
+  "schemaVersion": 39,
+  "tags": ["constellation"],
+  "templating": { "list": [] },
+  "time": { "from": "now-1h", "to": "now" },
+  "title": "Constellation — Pipeline Execution",
+  "uid": "constellation-pipelines"
+}

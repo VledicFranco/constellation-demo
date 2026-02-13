@@ -1,0 +1,35 @@
+# 11 — Resilience Patterns
+# Demonstrates: retry with backoff, timeout, on_error strategies,
+#               fallback values, combined resilience patterns
+#
+# These patterns ensure pipelines degrade gracefully under failure.
+
+in text: String
+
+# Retry with exponential backoff
+retried = Uppercase(text) with
+    retry: 3,
+    backoff: exponential
+
+# Timeout to prevent slow operations from blocking
+bounded = Lowercase(text) with timeout: 5s
+
+# Error handling: skip produces Optional (None on error)
+safe = WordCount(text) with on_error: skip
+
+# Fallback: use a default value if the module fails
+withFallback = Uppercase(text) with fallback: "FALLBACK_VALUE"
+
+# Combined resilience — production-grade configuration
+# Retries up to 3 times with exponential backoff,
+# times out after 30s, and skips on final failure
+robust = WordCount(text) with
+    retry: 3,
+    timeout: 30s,
+    backoff: exponential,
+    on_error: skip
+
+out retried
+out bounded
+out withFallback
+out robust

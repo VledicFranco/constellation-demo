@@ -1,0 +1,23 @@
+# 08 — Sentiment Analysis (TypeScript Provider)
+# Demonstrates: calling external modules from the TypeScript provider
+#               in the nlp.sentiment namespace
+#
+# Requires the provider-ts service to be running and connected.
+
+use nlp.sentiment
+
+in articleText: String
+in maxKeywords: Int
+
+# Analyze sentiment — returns { score: Float, label: String }
+sentiment = AnalyzeSentiment(articleText)
+
+# Detect language — returns { language: String, confidence: Float }
+language = DetectLanguage(articleText)
+
+# Extract keywords — returns { keywords: List<String> }
+keywords = ExtractKeywords(articleText, maxKeywords)
+
+out sentiment
+out language
+out keywords
