@@ -31,23 +31,16 @@ object Main extends IOApp.Simple {
     sys.env.getOrElse("EXECUTOR_HOST", "localhost")
 
   def run: IO[Unit] = {
-    val Array(host, port) = constellationAddress.split(":")
-
     for {
       _ <- IO.println(s"[provider-scala] Connecting to constellation server at $constellationAddress")
       _ <- IO.println(s"[provider-scala] Executor listening on $executorHost:$executorPort")
 
-      // WORKAROUND: The Scala SDK builds executorUrl as "$instanceAddress:$executorPort".
-      // In Docker, instanceAddress would be "constellation-server:9090" producing the
-      // malformed URL "constellation-server:9090:50052". To work around this, we pass
-      // the executor host as the "instance" address (so executorUrl = "provider-scala:50052")
-      // and ignore the addr parameter in the transport factory, connecting directly to the
-      // constellation server instead. See: https://github.com/VledicFranco/constellation-engine/issues/214
       provider <- ConstellationProvider.create(
         namespace = "nlp.entities",
-        instances = List(executorHost),
-        config = SdkConfig(executorPort = executorPort),
-        transportFactory = { (_: String) =>
+        instances = List(constellationAddress),
+        config = SdkConfig(executorPort = executorPort, executorHost = executorHost),
+        transportFactory = { (addr: String) =>
+          val Array(host, port) = addr.split(":")
           val channel = ManagedChannelBuilder.forAddress(host, port.toInt).usePlaintext().build()
           new GrpcProviderTransport(channel)
         },

@@ -71,12 +71,13 @@ object ClassifyTopic {
         val topic      = if (bestScore > 0) bestTopic else "general"
         val confidence = math.min(1.0, bestScore * 10)
 
+        val outType = CType.CProduct(Map("topic" -> CType.CString, "confidence" -> CType.CFloat))
         CValue.CProduct(
           Map(
             "topic"      -> CValue.CString(topic),
             "confidence" -> CValue.CFloat(confidence)
           ),
-          Map("topic" -> CType.CString, "confidence" -> CType.CFloat)
+          outType
         )
       }
     }

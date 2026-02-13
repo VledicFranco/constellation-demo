@@ -90,19 +90,18 @@ object CountWords {
         val topWords = freq.sortBy(-_._2).take(topN)
 
         // Build CValue result
-        // NOTE: CValue.CProduct takes Map[String, CType] as the structure parameter,
-        // not a CType.CProduct. The structure is a flat map of field names to types.
-        val wordStructure = Map("word" -> CType.CString, "count" -> CType.CInt)
+        // CValue.CProduct accepts either Map[String, CType] or CType.CProduct as structure
         val wordValues = topWords.map { case (word, count) =>
           CValue.CProduct(
             Map("word" -> CValue.CString(word), "count" -> CValue.CInt(count.toLong)),
-            wordStructure
+            wordRecordType   // CType.CProduct — convenience overload extracts the Map
           )
         }.toVector
 
+        val outType = CType.CProduct(Map("words" -> CType.CList(wordRecordType)))
         CValue.CProduct(
           Map("words" -> CValue.CList(wordValues, wordRecordType)),
-          Map("words" -> CType.CList(wordRecordType))
+          outType
         )
       }
     }
@@ -206,15 +205,16 @@ CType.CProduct(Map("x" -> CType.CInt))     // { x: Int }
 
 **CValue** (runtime values):
 ```scala
-CValue.CString("hello")                             // "hello"
-CValue.CInt(42L)                                    // 42
-CValue.CFloat(3.14)                                 // 3.14
-CValue.CBoolean(true)                               // true
-CValue.CList(Vector(...), elementType)               // [...]
-CValue.CProduct(Map(...), Map[String, CType](...))   // { ... }
+CValue.CString("hello")                              // "hello"
+CValue.CInt(42L)                                     // 42
+CValue.CFloat(3.14)                                  // 3.14
+CValue.CBoolean(true)                                // true
+CValue.CList(Vector(...), elementType)                // [...]
+CValue.CProduct(Map(...), Map[String, CType](...))    // { ... } (explicit)
+CValue.CProduct(Map(...), CType.CProduct(Map(...)))   // { ... } (convenience)
 ```
 
-> **Important:** `CValue.CProduct`'s second parameter is `Map[String, CType]` (a flat map of field names to types), not a `CType.CProduct`. This is a common mistake!
+> **Tip:** `CValue.CProduct` accepts either `Map[String, CType]` or `CType.CProduct` as the structure parameter. The convenience form is often cleaner when you already have the type defined.
 
 **Exercise:** Modify `CountWords` to also return the total number of unique words. Add a `uniqueCount: Int` field to the output type and value.
 

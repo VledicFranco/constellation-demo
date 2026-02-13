@@ -77,12 +77,13 @@ object ComputeReadability {
         val clampedScore = math.max(0.0, math.min(100.0, score))
         val grade        = scoreToGrade(clampedScore)
 
+        val outType = CType.CProduct(Map("score" -> CType.CFloat, "grade" -> CType.CString))
         CValue.CProduct(
           Map(
             "score" -> CValue.CFloat(clampedScore),
             "grade" -> CValue.CString(grade)
           ),
-          Map("score" -> CType.CFloat, "grade" -> CType.CString)
+          outType
         )
       }
     }
