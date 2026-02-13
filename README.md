@@ -71,6 +71,31 @@ Once running:
 | `12-caching-demo` | Cache TTLs (5min, 1h, 1d), memcached |
 | `13-priority-scheduling` | critical, high, normal, low, background |
 
+## Codelabs
+
+Hands-on exercises to learn Constellation Engine by doing. Start with Codelab 1 and work your way through — each builds on skills from earlier labs.
+
+| # | Codelab | Duration | What You'll Learn |
+|---|---------|----------|-------------------|
+| 1 | [Your First Pipeline](docs/codelabs/01-your-first-pipeline.md) | 15 min | Write, compile, and execute a pipeline from scratch |
+| 2 | [Exploring the Dashboard](docs/codelabs/02-exploring-the-dashboard.md) | 15 min | Browse pipelines, run scripts, visualize DAGs in the web UI |
+| 3 | [Building a Data Pipeline](docs/codelabs/03-building-a-data-pipeline.md) | 20 min | Combine text and data modules, use guards, branches, and stdlib |
+| 4 | [Calling External Providers](docs/codelabs/04-calling-external-providers.md) | 20 min | Use the TS and Scala NLP providers in your pipelines |
+| 5 | [Adding a TypeScript Module](docs/codelabs/05-adding-a-typescript-module.md) | 30 min | Build, register, and deploy a new module in the TS provider |
+| 6 | [Adding a Scala Module](docs/codelabs/06-adding-a-scala-module.md) | 30 min | Build, register, and deploy a new module in the Scala provider |
+| 7 | [Resilience & Caching](docs/codelabs/07-resilience-and-caching.md) | 25 min | Add retry, timeout, fallback, cache options and observe metrics |
+| 8 | [Observability Deep Dive](docs/codelabs/08-observability-deep-dive.md) | 25 min | Query Prometheus, build Grafana panels, interpret metrics |
+
+### Prerequisites
+
+All codelabs assume the demo is running:
+
+```bash
+./scripts/setup.sh              # first time only
+docker compose up --build -d    # start all services
+curl http://localhost:8080/health  # verify
+```
+
 ## Documentation
 
 | Document | Description |
