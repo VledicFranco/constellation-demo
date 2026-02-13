@@ -54,16 +54,17 @@ object ExtractEntities {
           }
         }
 
+        val entityStructure = Map("name" -> CType.CString, "entityType" -> CType.CString)
         val entityValues = entities.distinct.map { case (name, typ) =>
           CValue.CProduct(
             Map("name" -> CValue.CString(name), "entityType" -> CValue.CString(typ)),
-            entityRecordType
+            entityStructure
           )
         }.toVector
 
         CValue.CProduct(
           Map("entities" -> CValue.CList(entityValues, entityRecordType)),
-          CType.CProduct(Map("entities" -> CType.CList(entityRecordType)))
+          Map("entities" -> CType.CList(entityRecordType))
         )
       }
     }

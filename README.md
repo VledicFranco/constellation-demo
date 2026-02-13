@@ -4,17 +4,49 @@ A reference project showcasing all [Constellation Engine](https://github.com/Vle
 
 Articles flow through NLP analysis, scoring, and routing — powered by built-in modules, two external providers (TypeScript + Scala), distributed caching, priority scheduling, and full observability.
 
+## Prerequisites
+
+Before running the demo, you need:
+
+- **Docker & Docker Compose** v2.20+ — [install](https://docs.docker.com/get-docker/)
+- **Git** — to clone this repository
+- **curl** and **jq** — for running pipeline examples
+
+Java, Scala, sbt, and Node.js are **not required** — they run inside Docker containers.
+
+Additionally, you need a local clone of the [Constellation Engine](https://github.com/VledicFranco/constellation-engine) repository as a sibling directory (for the TS SDK tarball build):
+
+```
+parent-directory/
+  constellation-engine/    # git clone https://github.com/VledicFranco/constellation-engine
+  constellation-demo/      # this repo
+```
+
 ## Quick Start
 
+### 1. First-time setup
+
+The TypeScript provider requires a compiled SDK tarball from the engine repo:
+
 ```bash
-# One-time setup (builds TS SDK tarball for Docker)
 ./scripts/setup.sh        # Unix/macOS
 .\scripts\setup.ps1       # Windows
+```
 
-# Start all 6 services
+This script builds the TS SDK tarball via `npm pack`, copies it to `provider-ts/`, installs Node dependencies, and verifies Docker is available.
+
+> **If you skip this step**, `docker compose up --build` will fail with:
+> `COPY constellation-engine-provider-sdk-*.tgz ./` — no matching files found
+
+### 2. Start all services
+
+```bash
 docker compose up --build
+```
 
-# Verify
+### 3. Verify
+
+```bash
 curl http://localhost:8080/health
 ```
 

@@ -90,17 +90,19 @@ object CountWords {
         val topWords = freq.sortBy(-_._2).take(topN)
 
         // Build CValue result
+        // NOTE: CValue.CProduct takes Map[String, CType] as the structure parameter,
+        // not a CType.CProduct. The structure is a flat map of field names to types.
+        val wordStructure = Map("word" -> CType.CString, "count" -> CType.CInt)
         val wordValues = topWords.map { case (word, count) =>
           CValue.CProduct(
             Map("word" -> CValue.CString(word), "count" -> CValue.CInt(count.toLong)),
-            wordRecordType
+            wordStructure
           )
         }.toVector
 
-        val outType = CType.CProduct(Map("words" -> CType.CList(wordRecordType)))
         CValue.CProduct(
           Map("words" -> CValue.CList(wordValues, wordRecordType)),
-          outType
+          Map("words" -> CType.CList(wordRecordType))
         )
       }
     }
@@ -204,13 +206,15 @@ CType.CProduct(Map("x" -> CType.CInt))     // { x: Int }
 
 **CValue** (runtime values):
 ```scala
-CValue.CString("hello")                    // "hello"
-CValue.CInt(42L)                           // 42
-CValue.CFloat(3.14)                        // 3.14
-CValue.CBoolean(true)                      // true
-CValue.CList(Vector(...), elementType)      // [...]
-CValue.CProduct(Map(...), productType)      // { ... }
+CValue.CString("hello")                             // "hello"
+CValue.CInt(42L)                                    // 42
+CValue.CFloat(3.14)                                 // 3.14
+CValue.CBoolean(true)                               // true
+CValue.CList(Vector(...), elementType)               // [...]
+CValue.CProduct(Map(...), Map[String, CType](...))   // { ... }
 ```
+
+> **Important:** `CValue.CProduct`'s second parameter is `Map[String, CType]` (a flat map of field names to types), not a `CType.CProduct`. This is a common mistake!
 
 **Exercise:** Modify `CountWords` to also return the total number of unique words. Add a `uniqueCount: Int` field to the output type and value.
 
