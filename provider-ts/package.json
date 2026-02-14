@@ -9,9 +9,10 @@
     "dev": "tsc && node dist/index.js"
   },
   "dependencies": {
-    "@constellation-engine/provider-sdk": "file:../../constellation-engine/sdks/typescript"
+    "@constellation-engine/provider-sdk": "^0.8.0"
   },
   "devDependencies": {
+    "@types/node": "^20.0.0",
     "typescript": "^5.4.0"
   },
   "engines": {

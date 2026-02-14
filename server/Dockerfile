@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM sbtscala/scala-sbt:eclipse-temurin-jammy-17.0.10_7_1.10.7_3.3.4 AS build
+FROM sbtscala/scala-sbt:eclipse-temurin-jammy-17.0.10_7_1.10.4_3.3.4 AS build
 WORKDIR /app
 
 COPY project/build.properties project/
