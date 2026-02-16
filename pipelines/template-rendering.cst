@@ -1,0 +1,40 @@
+# Template Rendering — Complex string composition
+# Demonstrates: multi-step concat chains for template-like output
+
+use stdlib.string
+use stdlib.convert
+use stdlib.compare
+
+in title: String
+in author: String
+in wordCount: Int
+in isPublished: Boolean
+
+# Build header
+header = concat("=== ", concat(title, " ==="))
+
+# Build byline
+byline = concat("By ", author)
+
+# Build stats line
+wcStr = to-string(wordCount)
+stats = concat(wcStr, " words")
+
+# Build status
+status = if (isPublished) "Published" else "Draft"
+statusLine = concat("Status: ", status)
+
+# Build full template
+line1 = concat(header, "
+")
+line2 = concat(byline, "
+")
+line3 = concat(stats, "
+")
+fullTemplate = concat(line1, concat(line2, concat(line3, statusLine)))
+
+out header
+out byline
+out stats
+out statusLine
+out fullTemplate
