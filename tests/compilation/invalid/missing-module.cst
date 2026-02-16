@@ -1,0 +1,4 @@
+# Invalid: calls a module that does not exist
+in x: String
+result = NonExistentModule(x)
+out result
