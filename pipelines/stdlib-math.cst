@@ -1,0 +1,31 @@
+# Stdlib Math — Comprehensive math function coverage
+# Demonstrates: all stdlib.math functions
+
+use stdlib.math
+use stdlib.convert
+
+in a: Int
+in b: Int
+in f: Float
+
+sum = add(a, b)
+diff = subtract(a, b)
+product = multiply(a, b)
+quotient = divide(a, b)
+maximum = max(a, b)
+minimum = min(a, b)
+absolute = abs(a)
+remainder = modulo(a, b)
+rounded = round(f)
+negated = negate(a)
+
+out sum
+out diff
+out product
+out quotient
+out maximum
+out minimum
+out absolute
+out remainder
+out rounded
+out negated

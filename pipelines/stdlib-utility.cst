@@ -1,0 +1,12 @@
+# Stdlib Utility - Identity and debug
+# Demonstrates: identity, log functions
+
+use stdlib.debug
+
+in message: String
+
+logged = log(message)
+same = identity(message)
+
+out logged
+out same

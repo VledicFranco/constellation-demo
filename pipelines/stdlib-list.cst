@@ -1,0 +1,26 @@
+# Stdlib List - List function coverage
+# Demonstrates: all stdlib.list functions
+
+use stdlib.list
+
+in numbers: List<Int>
+in moreNumbers: List<Int>
+in target: Int
+
+length = list-length(numbers)
+first = list-first(numbers)
+last = list-last(numbers)
+isEmpty = list-is-empty(numbers)
+total = list-sum(numbers)
+combined = list-concat(numbers, moreNumbers)
+hasTarget = list-contains(numbers, target)
+reversed = list-reverse(numbers)
+
+out length
+out first
+out last
+out isEmpty
+out total
+out combined
+out hasTarget
+out reversed

@@ -1,0 +1,15 @@
+# Stdlib Conversion - Type conversion coverage
+# Demonstrates: all stdlib.convert functions
+
+use stdlib.convert
+
+in intVal: Int
+in floatVal: Float
+
+asString = to-string(intVal)
+asInt = to-int(floatVal)
+asFloat = to-float(intVal)
+
+out asString
+out asInt
+out asFloat
