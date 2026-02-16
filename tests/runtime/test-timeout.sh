@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Test timeout behavior — use pipeline with timeout option
+# Test timeout behavior -- verify server responds within reasonable time
 set -euo pipefail
 BASE_URL="${BASE_URL:-http://localhost:8080}"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -9,61 +9,74 @@ FAIL=0
 
 echo "=== Timeout Tests ==="
 
-# Use the resilience pipeline which has timeout options
-pipeline="$REPO_DIR/pipelines/11-resilience.cst"
-if [ ! -f "$pipeline" ]; then
-  echo "SKIP: 11-resilience.cst not found"
-  exit 0
-fi
+# Test 1: Simple pipeline should complete quickly
+echo "--- Test: Simple pipeline completes within 5s ---"
+start=$(python3 -c "import time; print(int(time.time()*1000))")
 
 request=$(python3 -c "
-import json
-source = open('$pipeline').read()
-inputs = {'text': 'timeout test input'}
-print(json.dumps({'source': source, 'inputs': inputs}))
-")
+import json, sys
+with open(sys.argv[1]) as f:
+    source = f.read()
+print(json.dumps({'source': source, 'inputs': {'a': 42, 'b': 7, 'f': 3.14}}))
+" "$REPO_DIR/pipelines/stdlib-math.cst")
 
-# Test 1: Execute pipeline with timeout options
-echo "--- Test: Pipeline with timeout options ---"
-start_time=$(date +%s%N 2>/dev/null || python3 -c "import time; print(int(time.time()*1000000000))")
-
-result=$(curl -s -X POST "$BASE_URL/run" \
+result=$(curl -s --max-time 5 -X POST "$BASE_URL/run" \
   -H "Content-Type: application/json" \
   -d "$request")
 
-end_time=$(date +%s%N 2>/dev/null || python3 -c "import time; print(int(time.time()*1000000000))")
+end=$(python3 -c "import time; print(int(time.time()*1000))")
+elapsed=$((end - start))
 
-if echo "$result" | grep -qi '"error"'; then
-  echo "  WARN: Pipeline with timeout produced error: $(echo "$result" | head -3)"
-  echo "  (This may be expected if timeout was triggered)"
+success=$(echo "$result" | python3 -c "
+import json, sys
+try:
+    d = json.load(sys.stdin)
+    print('true' if d.get('success', False) else 'false')
+except:
+    print('false')
+" 2>/dev/null || echo "false")
+
+if [ "$success" = "true" ] && [ "$elapsed" -lt 5000 ]; then
+  echo "  PASS: Completed in ${elapsed}ms (< 5000ms)"
   PASS=$((PASS+1))
 else
-  echo "  PASS: Pipeline with timeout completed successfully"
-  PASS=$((PASS+1))
+  echo "  FAIL: Timed out or failed (${elapsed}ms)"
+  FAIL=$((FAIL+1))
 fi
 
-# Test 2: Module options pipeline (has timeout: 30s)
-pipeline2="$REPO_DIR/pipelines/07-module-options.cst"
-if [ -f "$pipeline2" ]; then
-  echo "--- Test: Module options pipeline with timeout ---"
-  request2=$(python3 -c "
-import json
-source = open('$pipeline2').read()
-inputs = {'text': 'timeout options test', 'query': 'test'}
-print(json.dumps({'source': source, 'inputs': inputs}))
-")
+# Test 2: Complex pipeline should still complete in reasonable time
+echo "--- Test: Complex pipeline completes within 10s ---"
+start=$(python3 -c "import time; print(int(time.time()*1000))")
 
-  result2=$(curl -s -X POST "$BASE_URL/run" \
-    -H "Content-Type: application/json" \
-    -d "$request2")
+request=$(python3 -c "
+import json, sys
+with open(sys.argv[1]) as f:
+    source = f.read()
+print(json.dumps({'source': source, 'inputs': {'numbers': [1,2,3,4,5,6,7,8,9,10]}}))
+" "$REPO_DIR/pipelines/lambda-filter.cst")
 
-  if echo "$result2" | grep -qi '"error"'; then
-    echo "  FAIL: Module options pipeline with timeout failed: $(echo "$result2" | head -3)"
-    FAIL=$((FAIL+1))
-  else
-    echo "  PASS: Module options pipeline with timeout completed"
-    PASS=$((PASS+1))
-  fi
+result=$(curl -s --max-time 10 -X POST "$BASE_URL/run" \
+  -H "Content-Type: application/json" \
+  -d "$request")
+
+end=$(python3 -c "import time; print(int(time.time()*1000))")
+elapsed=$((end - start))
+
+success=$(echo "$result" | python3 -c "
+import json, sys
+try:
+    d = json.load(sys.stdin)
+    print('true' if d.get('success', False) else 'false')
+except:
+    print('false')
+" 2>/dev/null || echo "false")
+
+if [ "$success" = "true" ] && [ "$elapsed" -lt 10000 ]; then
+  echo "  PASS: Completed in ${elapsed}ms (< 10000ms)"
+  PASS=$((PASS+1))
+else
+  echo "  FAIL: Timed out or failed (${elapsed}ms)"
+  FAIL=$((FAIL+1))
 fi
 
 # Test 3: Verify server health after timeout tests

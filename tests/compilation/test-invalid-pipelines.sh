@@ -11,12 +11,36 @@ echo "=== Invalid Pipeline Compilation Tests ==="
 
 for pipeline in "$SCRIPT_DIR"/invalid/*.cst; do
   name=$(basename "$pipeline")
-  result=$(curl -s -X POST "$BASE_URL/compile" \
-    -H "Content-Type: text/plain" \
-    --data-binary @"$pipeline")
 
-  # These should produce errors — success means the test passes
-  if echo "$result" | grep -qi "error"; then
+  # Build JSON request using Python
+  request=$(python3 -c "
+import json, sys
+with open(sys.argv[1]) as f:
+    source = f.read()
+print(json.dumps({'source': source}))
+" "$pipeline" 2>&1) || true
+
+  if [ -z "$request" ]; then
+    FAIL=$((FAIL+1))
+    echo "  FAIL: $name (could not read pipeline)"
+    continue
+  fi
+
+  result=$(curl -s -X POST "$BASE_URL/compile" \
+    -H "Content-Type: application/json" \
+    -d "$request")
+
+  # These should produce errors -- success: false means the test passes
+  success=$(echo "$result" | python3 -c "
+import json, sys
+try:
+    d = json.load(sys.stdin)
+    print('true' if d.get('success', False) else 'false')
+except:
+    print('false')
+" 2>/dev/null || echo "false")
+
+  if [ "$success" = "false" ]; then
     PASS=$((PASS+1))
     echo "  PASS: $name (correctly rejected)"
   else

@@ -9,19 +9,19 @@ mkdir -p "$RESULTS_DIR"
 
 echo "=== Cache Performance Benchmark ==="
 
-# Use caching demo pipeline
-pipeline="$REPO_DIR/pipelines/12-caching-demo.cst"
+# Use stdlib-math pipeline (runs without example-app modules)
+pipeline="$REPO_DIR/pipelines/stdlib-math.cst"
 if [ ! -f "$pipeline" ]; then
-  echo "SKIP: 12-caching-demo.cst not found"
+  echo "SKIP: stdlib-math.cst not found"
   exit 0
 fi
 
 request=$(python3 -c "
-import json
-source = open('$pipeline').read()
-inputs = {'text': 'benchmark cache test input'}
-print(json.dumps({'source': source, 'inputs': inputs}))
-")
+import json, sys
+with open(sys.argv[1]) as f:
+    source = f.read()
+print(json.dumps({'source': source, 'inputs': {'a': 10, 'b': 3, 'f': 3.7}}))
+" "$pipeline")
 
 # Collect initial metrics
 echo "--- Initial metrics ---"
@@ -86,13 +86,14 @@ except:
     print('  Could not parse metrics')
 " 2>/dev/null
 
-# Compute stats
-python3 -c "
-import json
-from datetime import datetime
+# Compute stats — pass results dir via env var for Windows path compatibility
+RESULTS_DIR_PY="$RESULTS_DIR" python3 -c "
+import json, os
+from datetime import datetime, timezone
 
 warm = [$warm_latencies]
 cold = $cold_ms
+results_dir = os.environ['RESULTS_DIR_PY']
 
 avg_warm = sum(warm) / len(warm) if warm else 0
 min_warm = min(warm) if warm else 0
@@ -109,7 +110,7 @@ print(f'  Warm max:        {max_warm}ms')
 print(f'  Cache speedup:   {speedup:.1f}x')
 
 result = {
-    'timestamp': datetime.utcnow().isoformat() + 'Z',
+    'timestamp': datetime.now(timezone.utc).isoformat(),
     'type': 'cache-benchmark',
     'cold_ms': cold,
     'warm_runs': warm,
@@ -119,7 +120,8 @@ result = {
     'speedup': round(speedup, 1)
 }
 
-with open('$RESULTS_DIR/cache-benchmark.json', 'w') as f:
+out_path = os.path.join(results_dir, 'cache-benchmark.json')
+with open(out_path, 'w') as f:
     json.dump(result, f, indent=2)
     f.write('\n')
 print(f'  Results written to results/cache-benchmark.json')

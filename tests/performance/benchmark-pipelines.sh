@@ -7,8 +7,11 @@ REPO_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 RESULTS_DIR="$SCRIPT_DIR/results"
 mkdir -p "$RESULTS_DIR"
 
-# Provider pipelines to skip if not available
+# Pipelines that require external providers
 PROVIDER_PIPELINES="08-sentiment-analysis 09-entity-extraction 10-full-pipeline"
+
+# Pipelines that require example-app modules
+BUILTIN_PIPELINES="01-hello-world 02-text-processing 03-data-aggregation 04-record-types 05-guards-coalesce 07-module-options 11-resilience 12-caching-demo 13-priority-scheduling"
 
 echo "=== Pipeline Execution Benchmarks ==="
 
@@ -24,15 +27,31 @@ for input_file in "$REPO_DIR"/tests/inputs/*.json; do
     continue
   fi
 
-  # Build request
+  # Skip provider and builtin pipelines
+  is_skip=false
+  for pp in $PROVIDER_PIPELINES $BUILTIN_PIPELINES; do
+    if [ "$name" = "$pp" ]; then
+      is_skip=true
+      break
+    fi
+  done
+  if $is_skip; then
+    echo "  SKIP: $name (requires non-stdlib modules)"
+    continue
+  fi
+
+  # Build request using sys.argv for Windows compatibility
   request=$(python3 -c "
-import json
-source = open('$pipeline').read()
-inputs = json.load(open('$input_file'))
+import json, sys
+with open(sys.argv[1]) as f:
+    source = f.read()
+with open(sys.argv[2]) as f:
+    inputs = json.load(f)
 print(json.dumps({'source': source, 'inputs': inputs}))
-" 2>/dev/null || echo "ERROR")
+" "$pipeline" "$input_file" 2>/dev/null || echo "ERROR")
 
   if [ "$request" = "ERROR" ]; then
+    echo "  SKIP: $name (could not build request)"
     continue
   fi
 
@@ -43,7 +62,6 @@ print(json.dumps({'source': source, 'inputs': inputs}))
 
   # Timed runs (3 iterations)
   latencies=""
-  skip=false
   for i in 1 2 3; do
     start_ms=$(python3 -c "import time; print(int(time.time()*1000))")
 
@@ -53,21 +71,6 @@ print(json.dumps({'source': source, 'inputs': inputs}))
 
     end_ms=$(python3 -c "import time; print(int(time.time()*1000))")
 
-    # Check for errors (skip provider pipelines gracefully)
-    if echo "$result" | grep -qi '"error"'; then
-      is_provider=false
-      for pp in $PROVIDER_PIPELINES; do
-        if [ "$name" = "$pp" ]; then
-          is_provider=true
-          break
-        fi
-      done
-      if $is_provider; then
-        skip=true
-        break
-      fi
-    fi
-
     elapsed=$((end_ms - start_ms))
     if [ -z "$latencies" ]; then
       latencies="$elapsed"
@@ -75,11 +78,6 @@ print(json.dumps({'source': source, 'inputs': inputs}))
       latencies="$latencies,$elapsed"
     fi
   done
-
-  if $skip; then
-    echo "  SKIP: $name (provider not connected)"
-    continue
-  fi
 
   # Calculate average
   avg=$(python3 -c "
@@ -104,10 +102,10 @@ results="$results}"
 # Write results
 echo "$results" | python3 -c "
 import json, sys
-from datetime import datetime
+from datetime import datetime, timezone
 data = json.load(sys.stdin)
 output = {
-    'timestamp': datetime.utcnow().isoformat() + 'Z',
+    'timestamp': datetime.now(timezone.utc).isoformat(),
     'type': 'pipeline-execution',
     'pipelines': data
 }

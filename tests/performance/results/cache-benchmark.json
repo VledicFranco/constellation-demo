@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-02-16T05:29:43.211386+00:00",
+  "type": "cache-benchmark",
+  "cold_ms": 413,
+  "warm_runs": [
+    413,
+    383,
+    400,
+    382,
+    379,
+    381,
+    396,
+    365,
+    381,
+    404
+  ],
+  "warm_avg_ms": 388,
+  "warm_min_ms": 365,
+  "warm_max_ms": 413,
+  "speedup": 1.1
+}
