@@ -1,0 +1,11 @@
+use stdlib.collection
+use stdlib.compare
+use stdlib.math
+
+in numbers: List<Int>
+in factor: Int
+
+limit = multiply(factor, 2)
+above = filter(numbers, (x) => gt(x, limit))
+out limit
+out above

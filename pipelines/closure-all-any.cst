@@ -1,0 +1,10 @@
+use stdlib.collection
+use stdlib.compare
+
+in numbers: List<Int>
+in minimum: Int
+
+allAbove = all(numbers, (x) => gt(x, minimum))
+anyAbove = any(numbers, (x) => gt(x, minimum))
+out allAbove
+out anyAbove

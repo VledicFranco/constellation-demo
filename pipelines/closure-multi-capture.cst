@@ -1,0 +1,9 @@
+use stdlib.collection
+use stdlib.compare
+
+in numbers: List<Int>
+in lower: Int
+in upper: Int
+
+inRange = filter(numbers, (x) => gt(x, lower) and lt(x, upper))
+out inRange

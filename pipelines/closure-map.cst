@@ -1,0 +1,8 @@
+use stdlib.collection
+use stdlib.math
+
+in numbers: List<Int>
+in offset: Int
+
+shifted = map(numbers, (x) => add(x, offset))
+out shifted

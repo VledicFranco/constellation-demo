@@ -1,0 +1,8 @@
+use stdlib.collection
+use stdlib.compare
+
+in numbers: List<Int>
+in threshold: Int
+
+above = filter(numbers, (x) => gt(x, threshold))
+out above
