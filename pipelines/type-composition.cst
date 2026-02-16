@@ -1,4 +1,4 @@
-# Type Composition — Combining computed values
+# Type Composition â€” Combining computed values
 # Demonstrates: chaining stdlib functions, multi-step computation
 
 use stdlib.math

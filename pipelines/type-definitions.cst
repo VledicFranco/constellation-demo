@@ -1,4 +1,4 @@
-# Type Definitions — Custom record types
+# Type Definitions â€” Custom record types
 # Demonstrates: using stdlib to build structured results
 
 use stdlib.math

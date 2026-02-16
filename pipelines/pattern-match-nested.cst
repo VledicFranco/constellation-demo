@@ -1,4 +1,4 @@
-# Nested Pattern Matching — Multi-variable branching
+# Nested Pattern Matching â€” Multi-variable branching
 # Demonstrates: boolean operators in branch, nested conditions
 
 use stdlib.compare

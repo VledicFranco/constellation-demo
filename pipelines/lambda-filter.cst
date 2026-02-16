@@ -1,4 +1,4 @@
-# Lambda Filter — Higher-order list filtering
+# Lambda Filter â€” Higher-order list filtering
 # Demonstrates: filter with lambda predicate, list operations
 
 use stdlib.collection

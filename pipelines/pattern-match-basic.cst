@@ -1,4 +1,4 @@
-# Pattern Matching — Guard-based conditionals
+# Pattern Matching â€” Guard-based conditionals
 # Demonstrates: branch expressions, guard conditions
 
 use stdlib.compare

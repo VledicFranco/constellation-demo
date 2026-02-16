@@ -1,4 +1,4 @@
-# Higher-Order Validation — all/any predicates
+# Higher-Order Validation â€” all/any predicates
 # Demonstrates: all, any with lambda predicates
 
 use stdlib.collection
