@@ -10,12 +10,12 @@ in numbers: List<Int>
 # Map: double each number
 doubled = map(numbers, (x) => multiply(x, 2))
 
-# Map: negate each
-negated = map(numbers, (x) => negate(x))
+# Map: add 10 to each
+shifted = map(numbers, (x) => add(x, 10))
 
 # Reduce: sum the doubled values
 total = list-sum(doubled)
 
 out doubled
-out negated
+out shifted
 out total
