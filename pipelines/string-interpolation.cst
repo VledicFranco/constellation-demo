@@ -1,4 +1,4 @@
-# String Interpolation — Building formatted strings
+# String Interpolation -- Building formatted strings
 # Demonstrates: concat for string building, to-string conversions
 
 use stdlib.string

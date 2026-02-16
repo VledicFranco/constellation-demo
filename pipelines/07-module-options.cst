@@ -1,4 +1,4 @@
-# 07 — Module Options
+# 07 -- Module Options
 # Demonstrates: retry, timeout, cache, priority, backoff, throttle,
 #               on_error, combined options
 #
@@ -27,7 +27,7 @@ withBackoff = Uppercase(text) with retry: 3, backoff: exponential
 # Error handling: skip means use None on error (result becomes Optional)
 safe = WordCount(text) with on_error: skip
 
-# Combined options — realistic production configuration
+# Combined options -- realistic production configuration
 production = Uppercase(text) with
     retry: 3,
     timeout: 30s,

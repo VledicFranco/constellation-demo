@@ -1,4 +1,4 @@
-# Lambda Map-Reduce — Transform and aggregate
+# Lambda Map-Reduce -- Transform and aggregate
 # Demonstrates: map with lambda, list-sum for reduction
 
 use stdlib.collection

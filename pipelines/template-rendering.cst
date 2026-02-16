@@ -1,4 +1,4 @@
-# Template Rendering — Complex string composition
+# Template Rendering -- Complex string composition
 # Demonstrates: multi-step concat chains for template-like output
 
 use stdlib.string

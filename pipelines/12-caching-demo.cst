@@ -1,4 +1,4 @@
-# 12 — Caching Demo
+# 12 -- Caching Demo
 # Demonstrates: cache option with different TTLs, cache backend selection
 #
 # When memcached is configured, cached results are stored in the
@@ -6,16 +6,16 @@
 
 in text: String
 
-# Short-lived cache (5 minutes) — good for frequently changing data
+# Short-lived cache (5 minutes) -- good for frequently changing data
 quickCache = Uppercase(text) with cache: 5min
 
-# Medium cache (1 hour) — good for moderately stable data
+# Medium cache (1 hour) -- good for moderately stable data
 mediumCache = Lowercase(text) with cache: 1h
 
-# Long-lived cache (1 day) — good for stable reference data
+# Long-lived cache (1 day) -- good for stable reference data
 longCache = WordCount(text) with cache: 1d
 
-# Cache with retry — cached result survives retries
+# Cache with retry -- cached result survives retries
 resilientCached = TextLength(text) with
     cache: 30min,
     retry: 2
