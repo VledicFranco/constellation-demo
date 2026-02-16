@@ -1,0 +1,3 @@
+# Invalid: references variable text without declaring it as input
+upper = Uppercase(text)
+out upper

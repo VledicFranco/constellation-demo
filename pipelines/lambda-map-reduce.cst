@@ -1,0 +1,21 @@
+# Lambda Map-Reduce -- Transform and aggregate
+# Demonstrates: map with lambda, list-sum for reduction
+
+use stdlib.collection
+use stdlib.math
+use stdlib.list
+
+in numbers: List<Int>
+
+# Map: double each number
+doubled = map(numbers, (x) => multiply(x, 2))
+
+# Map: add 10 to each
+shifted = map(numbers, (x) => add(x, 10))
+
+# Reduce: sum the doubled values
+total = list-sum(doubled)
+
+out doubled
+out shifted
+out total

@@ -1,0 +1,3 @@
+# Invalid: uses a type that does not exist
+in x: FakeType
+out x

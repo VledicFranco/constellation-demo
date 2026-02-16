@@ -1,0 +1,20 @@
+# String Interpolation -- Building formatted strings
+# Demonstrates: concat for string building, to-string conversions
+
+use stdlib.string
+use stdlib.convert
+use stdlib.math
+
+in name: String
+in age: Int
+in score: Float
+
+# Build interpolated strings using concat
+greeting = concat("Hello, ", concat(name, "!"))
+ageMsg = concat(name, concat(" is ", concat(to-string(age), " years old")))
+scoreRounded = round(score)
+scoreMsg = concat("Score: ", to-string(scoreRounded))
+
+out greeting
+out ageMsg
+out scoreMsg

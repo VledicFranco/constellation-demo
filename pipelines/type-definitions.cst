@@ -1,0 +1,28 @@
+# Type Definitions -- Custom record types
+# Demonstrates: using stdlib to build structured results
+
+use stdlib.math
+use stdlib.string
+use stdlib.compare
+use stdlib.convert
+
+in name: String
+in age: Int
+in score: Int
+
+# Compute derived values
+nameLen = string-length(name)
+doubleScore = multiply(score, 2)
+isAdult = gte(age, 18)
+ageStr = to-string(age)
+scoreStr = to-string(score)
+
+# Build composite strings
+greeting = concat("Hello, ", name)
+summary = concat(name, concat(" (age ", concat(ageStr, concat("): score ", scoreStr))))
+
+out greeting
+out summary
+out isAdult
+out doubleScore
+out nameLen

@@ -1,4 +1,4 @@
-# 05 — Guards and Coalesce
+# 05 -- Guards and Coalesce
 # Demonstrates: guard expressions (when), coalesce operator (??),
 #               optional value handling
 #

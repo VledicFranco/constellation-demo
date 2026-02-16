@@ -1,0 +1,31 @@
+# Pattern Matching -- Guard-based conditionals
+# Demonstrates: branch expressions, guard conditions
+
+use stdlib.compare
+
+in value: Int
+
+# Letter grade using branch
+grade = branch {
+  gte(value, 90) -> "A",
+  gte(value, 80) -> "B",
+  gte(value, 70) -> "C",
+  gte(value, 60) -> "D",
+  otherwise -> "F"
+}
+
+# Pass/fail
+status = if (gte(value, 60)) "PASS" else "FAIL"
+
+# Descriptive category
+category = branch {
+  gte(value, 95) -> "exceptional",
+  gte(value, 85) -> "excellent",
+  gte(value, 75) -> "good",
+  gte(value, 65) -> "satisfactory",
+  otherwise -> "needs-improvement"
+}
+
+out grade
+out status
+out category

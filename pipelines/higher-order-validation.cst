@@ -1,0 +1,20 @@
+# Higher-Order Validation -- all/any predicates
+# Demonstrates: all, any with lambda predicates
+
+use stdlib.collection
+use stdlib.compare
+
+in scores: List<Int>
+
+# Check if all scores are passing (>= 60)
+allPassing = all(scores, (x) => gte(x, 60))
+
+# Check if any score is perfect (>= 100)
+anyPerfect = any(scores, (x) => gte(x, 100))
+
+# Check if any score needs attention (< 50)
+anyLow = any(scores, (x) => lt(x, 50))
+
+out allPassing
+out anyPerfect
+out anyLow

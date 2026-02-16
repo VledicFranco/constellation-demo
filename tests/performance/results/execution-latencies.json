@@ -1,0 +1,166 @@
+{
+  "timestamp": "2026-02-16T05:30:46.375732+00:00",
+  "type": "pipeline-execution",
+  "pipelines": {
+    "06-branch-logic": {
+      "avg_ms": 392,
+      "min_ms": 386,
+      "max_ms": 404,
+      "runs": [
+        404,
+        386,
+        386
+      ]
+    },
+    "higher-order-validation": {
+      "avg_ms": 375,
+      "min_ms": 352,
+      "max_ms": 402,
+      "runs": [
+        402,
+        371,
+        352
+      ]
+    },
+    "lambda-filter": {
+      "avg_ms": 407,
+      "min_ms": 377,
+      "max_ms": 424,
+      "runs": [
+        377,
+        420,
+        424
+      ]
+    },
+    "lambda-map-reduce": {
+      "avg_ms": 402,
+      "min_ms": 393,
+      "max_ms": 416,
+      "runs": [
+        397,
+        393,
+        416
+      ]
+    },
+    "pattern-match-basic": {
+      "avg_ms": 460,
+      "min_ms": 425,
+      "max_ms": 497,
+      "runs": [
+        458,
+        497,
+        425
+      ]
+    },
+    "pattern-match-nested": {
+      "avg_ms": 412,
+      "min_ms": 403,
+      "max_ms": 426,
+      "runs": [
+        426,
+        407,
+        403
+      ]
+    },
+    "stdlib-comparison": {
+      "avg_ms": 408,
+      "min_ms": 389,
+      "max_ms": 437,
+      "runs": [
+        398,
+        389,
+        437
+      ]
+    },
+    "stdlib-conversion": {
+      "avg_ms": 404,
+      "min_ms": 390,
+      "max_ms": 415,
+      "runs": [
+        408,
+        415,
+        390
+      ]
+    },
+    "stdlib-list": {
+      "avg_ms": 403,
+      "min_ms": 394,
+      "max_ms": 410,
+      "runs": [
+        394,
+        410,
+        405
+      ]
+    },
+    "stdlib-math": {
+      "avg_ms": 431,
+      "min_ms": 397,
+      "max_ms": 463,
+      "runs": [
+        433,
+        397,
+        463
+      ]
+    },
+    "stdlib-string": {
+      "avg_ms": 403,
+      "min_ms": 400,
+      "max_ms": 409,
+      "runs": [
+        409,
+        400,
+        400
+      ]
+    },
+    "stdlib-utility": {
+      "avg_ms": 414,
+      "min_ms": 404,
+      "max_ms": 429,
+      "runs": [
+        410,
+        429,
+        404
+      ]
+    },
+    "string-interpolation": {
+      "avg_ms": 414,
+      "min_ms": 411,
+      "max_ms": 418,
+      "runs": [
+        411,
+        418,
+        414
+      ]
+    },
+    "template-rendering": {
+      "avg_ms": 420,
+      "min_ms": 392,
+      "max_ms": 445,
+      "runs": [
+        392,
+        424,
+        445
+      ]
+    },
+    "type-composition": {
+      "avg_ms": 418,
+      "min_ms": 409,
+      "max_ms": 433,
+      "runs": [
+        409,
+        412,
+        433
+      ]
+    },
+    "type-definitions": {
+      "avg_ms": 399,
+      "min_ms": 382,
+      "max_ms": 416,
+      "runs": [
+        416,
+        401,
+        382
+      ]
+    }
+  }
+}

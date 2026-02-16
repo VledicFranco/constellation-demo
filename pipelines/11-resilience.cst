@@ -1,4 +1,4 @@
-# 11 — Resilience Patterns
+# 11 -- Resilience Patterns
 # Demonstrates: retry with backoff, timeout, on_error strategies,
 #               fallback values, combined resilience patterns
 #
@@ -20,7 +20,7 @@ safe = WordCount(text) with on_error: skip
 # Fallback: use a default value if the module fails
 withFallback = Uppercase(text) with fallback: "FALLBACK_VALUE"
 
-# Combined resilience — production-grade configuration
+# Combined resilience -- production-grade configuration
 # Retries up to 3 times with exponential backoff,
 # times out after 30s, and skips on final failure
 robust = WordCount(text) with

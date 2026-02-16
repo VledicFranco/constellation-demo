@@ -1,0 +1,30 @@
+# Nested Pattern Matching -- Multi-variable branching
+# Demonstrates: boolean operators in branch, nested conditions
+
+use stdlib.compare
+use stdlib.bool
+
+in score: Int
+in isVip: Boolean
+
+# Priority assignment based on score AND VIP status
+priority = branch {
+  isVip and gte(score, 90) -> "platinum",
+  isVip and gte(score, 70) -> "gold",
+  isVip -> "silver",
+  gte(score, 90) -> "gold",
+  gte(score, 70) -> "bronze",
+  otherwise -> "standard"
+}
+
+# Discount tier
+discount = branch {
+  isVip and gte(score, 80) -> "30%",
+  isVip -> "20%",
+  gte(score, 90) -> "15%",
+  gte(score, 70) -> "10%",
+  otherwise -> "0%"
+}
+
+out priority
+out discount

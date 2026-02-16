@@ -1,0 +1,31 @@
+# Type Composition -- Combining computed values
+# Demonstrates: chaining stdlib functions, multi-step computation
+
+use stdlib.math
+use stdlib.string
+use stdlib.compare
+use stdlib.convert
+
+in width: Int
+in height: Int
+
+# Compute area and perimeter
+area = multiply(width, height)
+perimeter = multiply(add(width, height), 2)
+
+# Determine shape category
+isSquare = eq-int(width, height)
+isLandscape = gt(width, height)
+
+# Format results
+areaStr = to-string(area)
+perimeterStr = to-string(perimeter)
+dimensions = concat(to-string(width), concat("x", to-string(height)))
+areaLabel = concat("Area: ", areaStr)
+
+out area
+out perimeter
+out isSquare
+out isLandscape
+out dimensions
+out areaLabel

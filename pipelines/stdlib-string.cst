@@ -1,0 +1,24 @@
+# Stdlib String - String function coverage
+# Demonstrates: all stdlib.string functions
+
+use stdlib.string
+
+in text: String
+in sep: String
+in words: List<String>
+
+joined = join(words, sep)
+length = string-length(text)
+trimmed = trim(text)
+combined = concat(text, " suffix")
+parts = split(text, " ")
+found = contains(text, "hello")
+replaced = replace(text, " ", "-")
+
+out joined
+out length
+out trimmed
+out combined
+out parts
+out found
+out replaced

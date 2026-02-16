@@ -1,4 +1,4 @@
-# 06 — Branch Logic
+# 06 -- Branch Logic
 # Demonstrates: branch expressions (multi-way conditionals),
 #               if/else expressions, boolean operators
 #
@@ -11,7 +11,7 @@ use stdlib.bool
 in score: Int
 in isUrgent: Boolean
 
-# Simple branch — letter grade
+# Simple branch -- letter grade
 grade = branch {
   gte(score, 90) -> "A",
   gte(score, 80) -> "B",

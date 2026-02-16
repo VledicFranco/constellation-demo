@@ -1,0 +1,15 @@
+# Suspension Demo -- Guard-based conditional execution
+# Demonstrates: optional results via guards, coalesce for defaults
+
+use stdlib.compare
+
+in score: Int
+
+# This produces Optional -- simulates "suspension" of a branch
+excellent = "EXCELLENT" when gte(score, 90)
+good = "GOOD" when gte(score, 70)
+
+# Coalesce resolves the suspension with fallback
+result = excellent ?? good ?? "NEEDS_WORK"
+
+out result

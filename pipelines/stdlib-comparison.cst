@@ -1,0 +1,23 @@
+# Stdlib Comparison - Comparison function coverage
+# Demonstrates: all stdlib.compare functions
+
+use stdlib.compare
+
+in num1: Int
+in num2: Int
+in str1: String
+in str2: String
+
+intEq = eq-int(num1, num2)
+strEq = eq-string(str1, str2)
+greater = gt(num1, num2)
+lesser = lt(num1, num2)
+greaterEq = gte(num1, num2)
+lesserEq = lte(num1, num2)
+
+out intEq
+out strEq
+out greater
+out lesser
+out greaterEq
+out lesserEq

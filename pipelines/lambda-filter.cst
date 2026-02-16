@@ -1,0 +1,21 @@
+# Lambda Filter -- Higher-order list filtering
+# Demonstrates: filter with lambda predicate, list operations
+# Note: lambdas cannot capture outer-scope variables (no closures)
+
+use stdlib.collection
+use stdlib.compare
+
+in numbers: List<Int>
+
+# Filter positive numbers
+positives = filter(numbers, (x) => gt(x, 0))
+
+# Filter numbers >= 10
+aboveTen = filter(numbers, (x) => gte(x, 10))
+
+# Filter numbers < 100
+belowHundred = filter(numbers, (x) => lt(x, 100))
+
+out positives
+out aboveTen
+out belowHundred
