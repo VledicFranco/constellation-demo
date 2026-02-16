@@ -1,0 +1,17 @@
+# Lambda Filter — Higher-order list filtering
+# Demonstrates: filter with lambda predicate, list operations
+
+use stdlib.collection
+use stdlib.compare
+
+in numbers: List<Int>
+in threshold: Int
+
+# Filter numbers greater than threshold
+above = filter(numbers, (x) => gt(x, threshold))
+
+# Filter even numbers (modulo not available in lambda, use gt with 0)
+positives = filter(numbers, (x) => gt(x, 0))
+
+out above
+out positives
