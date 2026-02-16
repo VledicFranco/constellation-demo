@@ -1,0 +1,40 @@
+name: Demo Tests
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Start services
+        run: docker compose up -d --wait --wait-timeout 120
+
+      - name: Wait for health
+        run: |
+          chmod +x tests/lib/wait-for-health.sh
+          ./tests/lib/wait-for-health.sh 120
+
+      - name: Run test suite
+        run: |
+          chmod -R +x tests/
+          chmod -R +x demos/
+          ./tests/run-all.sh
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: tests/golden/
+
+      - name: Tear down
+        if: always()
+        run: docker compose down
