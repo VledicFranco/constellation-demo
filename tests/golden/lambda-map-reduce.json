@@ -1,0 +1,1 @@
+{"success":true,"outputs":{"doubled":[2,4,6,8,10],"shifted":[11,12,13,14,15],"total":30},"structuralHash":"53c3e69f8c811c39a9f6335f675f2a19ff6f846aefc1ae6c202d40042498e5c7","compilationErrors":[],"error":null,"status":"completed","executionId":"2eaf7094-68e4-432d-9b48-0a18109ea66e","missingInputs":null,"pendingOutputs":null,"resumptionCount":0}
