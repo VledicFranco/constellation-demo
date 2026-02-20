@@ -2,7 +2,7 @@ use stdlib.collection
 use stdlib.compare
 use stdlib.math
 
-in numbers: List<Int>
+in numbers: Seq<Int>
 in factor: Int
 
 limit = multiply(factor, 2)

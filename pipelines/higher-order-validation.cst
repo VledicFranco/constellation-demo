@@ -4,7 +4,7 @@
 use stdlib.collection
 use stdlib.compare
 
-in scores: List<Int>
+in scores: Seq<Int>
 
 # Check if all scores are passing (>= 60)
 allPassing = all(scores, (x) => gte(x, 60))

@@ -1,165 +1,215 @@
 {
-  "timestamp": "2026-02-16T05:30:46.375732+00:00",
+  "timestamp": "2026-02-20T16:30:25.152490+00:00",
   "type": "pipeline-execution",
   "pipelines": {
     "06-branch-logic": {
-      "avg_ms": 392,
-      "min_ms": 386,
-      "max_ms": 404,
+      "avg_ms": 268,
+      "min_ms": 256,
+      "max_ms": 275,
       "runs": [
-        404,
-        386,
-        386
+        275,
+        256,
+        273
+      ]
+    },
+    "closure-all-any": {
+      "avg_ms": 269,
+      "min_ms": 261,
+      "max_ms": 282,
+      "runs": [
+        261,
+        282,
+        265
+      ]
+    },
+    "closure-computed": {
+      "avg_ms": 257,
+      "min_ms": 236,
+      "max_ms": 278,
+      "runs": [
+        236,
+        259,
+        278
+      ]
+    },
+    "closure-filter": {
+      "avg_ms": 285,
+      "min_ms": 276,
+      "max_ms": 298,
+      "runs": [
+        298,
+        282,
+        276
+      ]
+    },
+    "closure-map": {
+      "avg_ms": 262,
+      "min_ms": 234,
+      "max_ms": 280,
+      "runs": [
+        274,
+        234,
+        280
+      ]
+    },
+    "closure-multi-capture": {
+      "avg_ms": 272,
+      "min_ms": 258,
+      "max_ms": 289,
+      "runs": [
+        271,
+        258,
+        289
       ]
     },
     "higher-order-validation": {
-      "avg_ms": 375,
-      "min_ms": 352,
-      "max_ms": 402,
+      "avg_ms": 280,
+      "min_ms": 236,
+      "max_ms": 303,
       "runs": [
-        402,
-        371,
-        352
+        303,
+        303,
+        236
       ]
     },
     "lambda-filter": {
-      "avg_ms": 407,
-      "min_ms": 377,
-      "max_ms": 424,
+      "avg_ms": 254,
+      "min_ms": 243,
+      "max_ms": 263,
       "runs": [
-        377,
-        420,
-        424
+        263,
+        243,
+        257
       ]
     },
     "lambda-map-reduce": {
-      "avg_ms": 402,
-      "min_ms": 393,
-      "max_ms": 416,
+      "avg_ms": 258,
+      "min_ms": 244,
+      "max_ms": 274,
       "runs": [
-        397,
-        393,
-        416
+        244,
+        257,
+        274
       ]
     },
     "pattern-match-basic": {
-      "avg_ms": 460,
-      "min_ms": 425,
-      "max_ms": 497,
+      "avg_ms": 288,
+      "min_ms": 276,
+      "max_ms": 298,
       "runs": [
-        458,
-        497,
-        425
+        290,
+        298,
+        276
       ]
     },
     "pattern-match-nested": {
-      "avg_ms": 412,
-      "min_ms": 403,
-      "max_ms": 426,
+      "avg_ms": 270,
+      "min_ms": 256,
+      "max_ms": 282,
       "runs": [
-        426,
-        407,
-        403
+        256,
+        273,
+        282
       ]
     },
     "stdlib-comparison": {
-      "avg_ms": 408,
-      "min_ms": 389,
-      "max_ms": 437,
+      "avg_ms": 264,
+      "min_ms": 244,
+      "max_ms": 278,
       "runs": [
-        398,
-        389,
-        437
+        271,
+        278,
+        244
       ]
     },
     "stdlib-conversion": {
-      "avg_ms": 404,
-      "min_ms": 390,
-      "max_ms": 415,
+      "avg_ms": 269,
+      "min_ms": 250,
+      "max_ms": 300,
       "runs": [
-        408,
-        415,
-        390
+        259,
+        300,
+        250
       ]
     },
     "stdlib-list": {
-      "avg_ms": 403,
-      "min_ms": 394,
-      "max_ms": 410,
+      "avg_ms": 264,
+      "min_ms": 259,
+      "max_ms": 271,
       "runs": [
-        394,
-        410,
-        405
+        271,
+        262,
+        259
       ]
     },
     "stdlib-math": {
-      "avg_ms": 431,
-      "min_ms": 397,
-      "max_ms": 463,
+      "avg_ms": 258,
+      "min_ms": 253,
+      "max_ms": 266,
       "runs": [
-        433,
-        397,
-        463
+        253,
+        257,
+        266
       ]
     },
     "stdlib-string": {
-      "avg_ms": 403,
-      "min_ms": 400,
-      "max_ms": 409,
+      "avg_ms": 287,
+      "min_ms": 264,
+      "max_ms": 312,
       "runs": [
-        409,
-        400,
-        400
+        312,
+        264,
+        285
       ]
     },
     "stdlib-utility": {
-      "avg_ms": 414,
-      "min_ms": 404,
-      "max_ms": 429,
+      "avg_ms": 249,
+      "min_ms": 240,
+      "max_ms": 265,
       "runs": [
-        410,
-        429,
-        404
+        265,
+        240,
+        243
       ]
     },
     "string-interpolation": {
-      "avg_ms": 414,
-      "min_ms": 411,
-      "max_ms": 418,
+      "avg_ms": 275,
+      "min_ms": 270,
+      "max_ms": 283,
       "runs": [
-        411,
-        418,
-        414
+        274,
+        283,
+        270
       ]
     },
     "template-rendering": {
-      "avg_ms": 420,
-      "min_ms": 392,
-      "max_ms": 445,
+      "avg_ms": 270,
+      "min_ms": 252,
+      "max_ms": 283,
       "runs": [
-        392,
-        424,
-        445
+        283,
+        252,
+        275
       ]
     },
     "type-composition": {
-      "avg_ms": 418,
-      "min_ms": 409,
-      "max_ms": 433,
+      "avg_ms": 282,
+      "min_ms": 269,
+      "max_ms": 292,
       "runs": [
-        409,
-        412,
-        433
+        269,
+        286,
+        292
       ]
     },
     "type-definitions": {
-      "avg_ms": 399,
-      "min_ms": 382,
-      "max_ms": 416,
+      "avg_ms": 277,
+      "min_ms": 250,
+      "max_ms": 299,
       "runs": [
-        416,
-        401,
-        382
+        284,
+        299,
+        250
       ]
     }
   }

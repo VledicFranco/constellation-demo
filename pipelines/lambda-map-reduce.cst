@@ -5,7 +5,7 @@ use stdlib.collection
 use stdlib.math
 use stdlib.list
 
-in numbers: List<Int>
+in numbers: Seq<Int>
 
 # Map: double each number
 doubled = map(numbers, (x) => multiply(x, 2))
