@@ -6,6 +6,7 @@
 # Coalesce (??) unwraps an Optional with a fallback value.
 
 use stdlib.compare
+use stdlib.string
 
 in score: Int
 in name: String

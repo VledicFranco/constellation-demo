@@ -21,6 +21,7 @@ import io.constellation.impl.ConstellationImpl
 import io.constellation.lang.CachingLangCompiler
 import io.constellation.provider.{ModuleProviderManager, ProviderManagerConfig}
 import io.constellation.stdlib.StdLib
+import io.constellation.stream.connector.ConnectorRegistry
 
 import org.typelevel.log4cats.Logger
 import org.typelevel.log4cats.slf4j.Slf4jLogger
@@ -94,6 +95,7 @@ object DemoServer extends IOApp.Simple {
                   PipelineLoaderConfig(directory = Paths.get(pipelineDir))
                 )
                 .withExecutionWebSocket(executionWs)
+                .withStreaming(ConnectorRegistry.empty)
                 .run
             } yield ()
           }

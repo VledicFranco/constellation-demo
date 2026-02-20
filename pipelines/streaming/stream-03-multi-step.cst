@@ -4,6 +4,7 @@
 
 use stdlib.math
 use stdlib.string
+use stdlib.convert
 
 in name: String
 in score: Int
