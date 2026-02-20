@@ -1,7 +1,7 @@
 use stdlib.collection
 use stdlib.compare
 
-in numbers: List<Int>
+in numbers: Seq<Int>
 in minimum: Int
 
 allAbove = all(numbers, (x) => gt(x, minimum))

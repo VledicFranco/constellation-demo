@@ -5,7 +5,7 @@
 use stdlib.collection
 use stdlib.compare
 
-in numbers: List<Int>
+in numbers: Seq<Int>
 
 # Filter positive numbers
 positives = filter(numbers, (x) => gt(x, 0))

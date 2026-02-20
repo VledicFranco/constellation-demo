@@ -6,6 +6,7 @@
 use stdlib.math
 use stdlib.string
 use stdlib.compare
+use stdlib.convert
 
 in name: String
 in age: Int

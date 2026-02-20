@@ -1,7 +1,8 @@
-val constellationVersion = "0.8.1"
+val constellationVersion = "0.8.2-SNAPSHOT"
 
 lazy val root = (project in file("."))
   .settings(
+    resolvers += Resolver.mavenLocal,
     name := "constellation-demo-server",
     version := "0.1.0",
     scalaVersion := "3.3.4",

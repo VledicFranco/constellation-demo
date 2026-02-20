@@ -1,0 +1,13 @@
+# Stream 01 - Simple Transform
+# Simplest streaming pipeline: single input → stdlib transform → output
+# In streaming mode: source → evalMap(string-length) → sink
+
+use stdlib.string
+
+in text: String
+
+length = string-length(text)
+upper = concat(text, " (processed)")
+
+out length
+out upper

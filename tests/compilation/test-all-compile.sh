@@ -13,7 +13,7 @@ ERRORS=""
 PROVIDER_PIPELINES="08-sentiment-analysis 09-entity-extraction 10-full-pipeline"
 
 # Pipelines that require example-app built-in modules (Uppercase, Lowercase, etc.)
-BUILTIN_PIPELINES="01-hello-world 02-text-processing 03-data-aggregation 04-record-types 05-guards-coalesce 07-module-options 11-resilience 12-caching-demo 13-priority-scheduling"
+BUILTIN_PIPELINES="01-hello-world 02-text-processing 03-data-aggregation 07-module-options 11-resilience 12-caching-demo 13-priority-scheduling"
 
 echo "=== Compilation Tests ==="
 
