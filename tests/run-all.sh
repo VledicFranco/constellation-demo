@@ -22,7 +22,7 @@ echo ""
 echo ""
 
 # Run each test suite
-for suite_dir in compilation execution errors provider runtime performance; do
+for suite_dir in compilation execution errors provider runtime performance streaming; do
   suite_path="$SCRIPT_DIR/$suite_dir"
   [ -d "$suite_path" ] || continue
 

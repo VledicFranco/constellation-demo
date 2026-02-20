@@ -1,0 +1,26 @@
+# Stream 03 - Multi-Step Chain
+# Multi-step chain through multiple stdlib modules
+# In streaming mode: source → chain of 4 transforms → sink
+
+use stdlib.math
+use stdlib.string
+
+in name: String
+in score: Int
+
+# Step 1: String processing
+greeting = concat("Hello, ", name)
+nameLen = string-length(name)
+
+# Step 2: Math transforms
+bonus = multiply(score, 2)
+total = add(score, bonus)
+
+# Step 3: Combine into final output
+summary = concat(greeting, concat(" — score: ", to-string(total)))
+
+out greeting
+out nameLen
+out bonus
+out total
+out summary

@@ -2,7 +2,7 @@ name: Demo Tests
 
 on:
   push:
-    branches: [master, main]
+    branches: [master, main, 'upgrade/**', 'feature/**']
   pull_request:
     branches: [master, main]
 

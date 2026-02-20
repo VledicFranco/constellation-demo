@@ -1,0 +1,18 @@
+# Stream 02 - Filter and Aggregation
+# Multi-step transform: input → compare → conditional output
+# In streaming mode: source → filter/transform chain → sink
+
+use stdlib.math
+use stdlib.compare
+use stdlib.string
+
+in value: Int
+in threshold: Int
+
+isAbove = gte(value, threshold)
+doubled = multiply(value, 2)
+label = concat("result: ", to-string(doubled))
+
+out isAbove
+out doubled
+out label
