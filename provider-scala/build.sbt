@@ -1,4 +1,4 @@
-val constellationVersion = "0.8.2-SNAPSHOT"
+val constellationVersion = "0.8.4"
 
 lazy val root = (project in file("."))
   .settings(
